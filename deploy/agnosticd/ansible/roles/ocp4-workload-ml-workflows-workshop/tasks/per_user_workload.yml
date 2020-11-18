@@ -34,8 +34,8 @@
     - pipeline-s2i-imagestream.yaml.j2
     - pipeline-resource-source.yaml.j2
     - pipeline-resource-image.yaml.j2
-    - pipeline-task-definition.yaml.j2
-    - pipeline-definition.yaml.j2
+#    - pipeline-task-definition.yaml.j2
+#    - pipeline-definition.yaml.j2
   when: use_openshift_pipelines
   vars:
     namespace: "{{ t_project_name }}"
