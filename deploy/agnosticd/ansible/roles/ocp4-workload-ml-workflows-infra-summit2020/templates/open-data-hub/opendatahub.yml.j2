@@ -6,13 +6,13 @@ metadata:
   name: opendatahub
   namespace: {{ namespace }}
 spec:
-  version: v0.8.0
+  version: v0.9.0
   repos:
     - name: kf-manifests
       uri: >-
         https://github.com/opendatahub-io/manifests/tarball/v1.0-branch-openshift
     - name: manifests
-      uri: 'https://github.com/opendatahub-io/odh-manifests/tarball/v0.8.0'
+      uri: 'https://github.com/opendatahub-io/odh-manifests/tarball/v0.9.0'
   applications:
     - kustomizeConfig:
         repoRef:
@@ -47,6 +47,11 @@ spec:
           name: manifests
           path: jupyterhub/jupyterhub
       name: jupyterhub
+    - kustomizeConfig:
+        repoRef:
+          name: manifests
+          path: odh-dashboard
+      name: odh-dashboard
     - kustomizeConfig:
         overlays:
           - additional
