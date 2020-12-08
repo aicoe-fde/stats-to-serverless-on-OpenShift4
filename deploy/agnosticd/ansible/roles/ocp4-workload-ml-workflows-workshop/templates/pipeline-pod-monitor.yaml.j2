@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: serverless
+  managedFields:
+    - apiVersion: monitoring.coreos.com/v1
+      fieldsType: FieldsV1
+  labels:
+    team: opendatahub
+spec:
+  podMetricsEndpoints:
+    - interval: 30s
+  selector:
+    matchLabels:
+      serving.knative.dev/service: pipeline
