@@ -44,6 +44,7 @@ spec:
             - pipeline
             - '--force'
             - '--image=$(params.MODEL_IMAGE)'
+            - '--scale-min=1'
             - '--cluster-local'
       runAfter:
         - build-pipeline-image
