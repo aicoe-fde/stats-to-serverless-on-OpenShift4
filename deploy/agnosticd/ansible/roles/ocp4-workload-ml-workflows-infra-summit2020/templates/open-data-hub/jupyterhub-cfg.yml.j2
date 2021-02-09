@@ -1,0 +1,14 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: jupyterhub-cfg
+  namespace: {{ namespace }}
+  labels:
+    app: jupyterhub
+    component.opendatahub.io/name: jupyterhub
+    opendatahub.io/component: 'true'
+data:
+  gpu_mode: ''
+  jupyterhub_admins: admin
+  jupyterhub_config.py: c.OpenShiftOAuthenticator.validate_cert = False
+  singleuser_pvc_size: 2Gi
