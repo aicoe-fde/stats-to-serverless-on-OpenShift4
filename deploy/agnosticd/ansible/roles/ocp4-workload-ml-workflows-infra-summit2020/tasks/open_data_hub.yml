@@ -22,13 +22,6 @@
     namespace: "{{ user_project }}"
     suffix: opentlc-mgr
 
-- name: "Create jupyterhub-cfg  Config for use in  {{ user_project }}"
-  k8s:
-    state: "{{ state }}"
-    definition: "{{ lookup('template', 'open-data-hub/jupyterhub-cfg.yml.j2') }}"
-  vars:
-    namespace: "{{ user_project }}"
-
 - name: "Create Workshop Single User Profile in project {{ user_project }}"
   k8s:
     state: "{{ state }}"
