@@ -26,7 +26,7 @@ Visit the URL you are given by the instructor, and enter your _username_ and _pa
 
 ![images](images/landing-page.png)
 
-__(Note that your project name and the username in the top right hand corner will differ from what you see here, reflecting your username instead.)__
+__(Note that your project name and the username will differ from what you see here, reflecting your username instead.)__
 
 
 Go ahead and click on your project name to access your personal project:
@@ -34,12 +34,16 @@ Go ahead and click on your project name to access your personal project:
 ![landing page](images/landing-page-hlt.png) 
 
 
-#### Accessing JupyterHub
+You'll then be taken to the OpenShift console Topology View, showing all deployed pods in your user project. Click on the arrow in the top right of the `odh-dashboard` pod to go to the dashboard. The Open Data Hub Dashboard shows all tools we have deployed using the Open Data Hub Operator. Go ahead and click 'launch' on the JupyterHub tile. 
+
+![jh-launcher](images/jhub-launcher.png) 
 
 
-JupyterHub is an interactive development environment which serves Jupyter Notebooks. We will use it today for exploratory data anlysis and model development.
+#### Accessing JupyterLab
 
-JupyterHub is running in your OpenShift project and you can access it as follows: In the left-hand side of the OpenShift Console, visit `Networking -> Routes`. You'll see a bunch of URLs for different exposed services within your OpenShift project. Go ahead and click on the URL corresponding to `JupyterHub`.
+
+JupyterLab is an interactive development environment which serves Jupyter Notebooks. We will use it today for exploratory data anlysis and model development.
+
 
 You will be taken to a page asking you to 'Sign in with OpenShift'. Go ahead and click that big orange button.
 
@@ -49,7 +53,7 @@ You will then be asked to enter your _username_ and _password_ again. (These are
 
 You will then be asked to authorise some requested permissions. Once you've authorised access, you'll see the JupyterHub Spawner Options screen:
 
-![jh-spawner](images/jh-spawner.png)
+![jh-spawner](images/jh-spawner-v1.png)
 
 **All these variables have been pre-set to the correct values for you, so do not change any spawner options.**
 
@@ -58,18 +62,15 @@ From top to bottom, the variables on this page are:
 * an image to run our environment in. Notebook images contain pre-loaded libraries. For today's workshop this should be set to `ml-workflows-notbook:latest`. 
 * t-shirt sizing for the environment. Make sure you keep this as `Default`, else you won't be able to run the notebooks.
 * the number of GPUs you want to use. (We don't have any GPUs on the cluster we're working on today, so keep this at `0`!)
-* Environment variables relating to the persistent volume which JupyterHub creates in our project:
-	1.  the location of a git repo containing the notebooks you want to clone into your persistant volume. The repo for this workshop is https://github.com/willb/fraud-notebooks. 
-	2. secrets and access keys for any other storage you wish to connect to. (This should be left blank.)
-	3. any extra variable names you want to specify. (This should also be left blank.)
+* Environment variables relating to the persistent volume which JupyterLab creates in our project:
+	1.  A variable which enables JupyterLab (rather than JupyterHub.)
+	2.  the location of a git repo containing the notebooks you want to clone into your persistant volume. The repo for this workshop is https://github.com/OpenShiftDemos/fraud-notebooks. 
 	
-Go ahead and click `Spawn`. JupyterHub will set up that environment for you. This may take a few minutes and whilst the environment is spawning you will see a loading bar like this: 
+Go ahead and click `Start`. JupyterHub will set up that environment for you. This may take a few minutes and whilst the environment is spawning you will see a loading bar like this: 
 
 ![jh-server-spawn](images/server-spawn.png)
 
 You're now inside your JupyterHub instance, within your own OpenShift project. The notebooks we will be working with today are in the `fraud-notebooks` folder, so go ahead and click on that. 
-
-![access-notebooks](images/access-notebooks.png)
 
 If you haven't used Jupyter notebooks before, or are in need of a Jupyter notebook refresher, you should spend some time working through notebook `00-getting-started.ipynb`. It will step you through how to interact with Jupyter notebooks, and how to reset your notebooks if you get really stuck. 
 
@@ -145,15 +146,24 @@ You can see it by navigating to the Serverless section in the side menu.
 ![image](images/serverless-admin-view.png)
 Make note of your service URL. 
 It should look like `http://pipeline.opendatahub-{USERNAME}.svc.cluster.local`.
-This is the URL that you will use for the next step, for which you will return to JupyterHub.
+This is the URL that you will use for the next step, for which you will return to JupyterLab.
 
 __(Note that this service is only visible from within the cluster, so you won't be able to access it in the browser.)__
 
 #### Making Predictions Using the Model Service
 
-Congratulations!
 You have successfully built and deployed a service that makes predictions based on the model you trained earlier.
-Now you can return to JupyterHub and open the `04-services.ipynb` notebook, which will walk you through a few scenarios where you can invoke this service, and show you how to monitor the service with OpenShift. 
+Now you can return to JupyterLab and open the `04-services.ipynb` notebook, which will walk you through a few scenarios where you can invoke this service, and show you how to monitor the service with OpenShift. 
+
+We will monitor model metrics in Grafana. Access Grafana from the Open Data Hub Dashboard, and sign in by clicking the `<-` on the bottom left hand side of the page. Your username and password for Grafana are `root` and `secret`. 
+
+Click on the `+` on the left menu in Grafana, and under `Create`, click `Dashboard`. 
+
+![image](images/grafana-create.png)
+
+You can visualise metrics coming from your pipeline service by typing in the `metrics` box. 
+
+![image](images/metrics.png)
 
 
 #### Overview 
