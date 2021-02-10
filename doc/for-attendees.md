@@ -109,6 +109,7 @@ In the sidebar menu, navigate to the "Pipelines" section and open the "Pipelines
 You should see now the build pipeline. 
 
 ![images](images/pipelines-view.png)
+
 Click on the pipeline to inspect its definition. 
 A build pipeline is made of one or more tasks. 
 For this lab, we will run a build pipeline with two tasks running sequentially:
@@ -117,12 +118,15 @@ For this lab, we will run a build pipeline with two tasks running sequentially:
 * a task that will deploy a service using OpenShift Serverless
 
 ![images](images/pipelines-detail.png)
+
 Now you can return to the previous menu, and start the pipeline.
 
 ![images](images/pipelines-start.png)
+
 You will be prompted with the pipeline run parameters, which should look like in the picture below.
 
 ![images](images/pipelines-start-variables.png)
+
 Confirm that the values are correct, then press "Start".
 As the pipeline runs, the OpenShift console will display the progress of the pipeline tasks. 
 You can click on the running task to inspect the logs.
@@ -144,6 +148,7 @@ After the build pipeline has completed, you should have a serverless service dep
 You can see it by navigating to the Serverless section in the side menu.
 
 ![image](images/serverless-admin-view.png)
+
 Make note of your service URL. 
 It should look like `http://pipeline.opendatahub-{USERNAME}.svc.cluster.local`.
 This is the URL that you will use for the next step, for which you will return to JupyterLab.
