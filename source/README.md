@@ -24,7 +24,7 @@ If you want to experiment with the data generator, you'll want to use your own c
 3. Install [pipenv](https://docs.pipenv.org/en/latest/)
     - on a Mac, the easiest way is probably `brew install pipenv`
     - on a Fedora Linux machine, the easiest way is probably `dnf install pipenv`
-    - on Windows, if you have Python installed already, the easiest way is probably [to use `pip`](https://docs.pipenv.org/en/latest/install/#pragmatic-installation-of-pipenv)  
+    - on Windows, if you have Python installed already, the easiest way is probably [to use `pip`](https://docs.pipenv.org/install/#installing-pipenv)  
     
 ### Install the notebooks and dependencies
 
