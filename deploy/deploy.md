@@ -15,7 +15,7 @@ To run this lab in RHPDS, first provision an OpenShift 4 workshop from the RHDPS
 1. `export RHPDS_GUID=city-1234`, where `city-1234` is your RHPDS cluster GUID;
 1. `export RHPDS_USER=yourkrb-redhat.com`, where `yourkrb` is your Kerberos ID;
 1. `export RHPDS_USER_COUNT=5` (or more if you're running an actual workshop)
-1. `./deploy.sh`
+1. `./deploy/deploy.sh`
 
 `deploy.sh` will attempt to infer the right domain name for your RHPDS cluster based on your cluster GUID and your ssh known hosts file.  If this fails, you'll need to explicitly set the RHPDS domain name with `export RHPDS_DOMAIN=example.opentlc.com`, `export RHPDS_DOMAIN=open.redhat.com`, or something else as appropriate, depending on which domain RHPDS is using (see the email).
 
