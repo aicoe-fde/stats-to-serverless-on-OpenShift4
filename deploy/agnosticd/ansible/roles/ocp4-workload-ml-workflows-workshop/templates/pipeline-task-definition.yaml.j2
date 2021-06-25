@@ -1,39 +1,35 @@
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: simple-model-s2i
 spec:
-  inputs:
-    params:
-    - description: The location of the s2i builder image.
-      name: BUILDER_IMAGE
-    - default: .
+  workspaces:
+    - name: shared-workspace  
+  params:
+    - name: BUILDER_IMAGE
+      description: The location of the s2i builder image.
+      default: .
+    - name: PATH_CONTEXT
       description: The location of the path to run s2i from.
-      name: PATH_CONTEXT
-    - default: 'false'
-      description: Verify the TLS on the registry endpoint (for push/pull to a non-TLS
-        registry)
-      name: TLSVERIFY
+    - name: TLSVERIFY
+      default: 'false'
+      description: Verify the TLS on the registry endpoint (for push/pull to a non-TLS registry)
     - name: LOGLEVEL
       description: Log level when running the S2I binary
       default: '0'
     - name: S2I_SOURCE_NOTEBOOK_LIST
       default: {{ pipeline_notebook_list }}
-    resources:
-    - name: source
-      type: git
-  outputs:
-    resources:
+  results:
     - name: image
-      type: image
+      description: resulting container image
   steps:
   - command:
     - /usr/local/bin/s2i
-    - --loglevel=$(inputs.params.LOGLEVEL)
+    - --loglevel=$(params.LOGLEVEL)
     - build
-    - -e S2I_SOURCE_NOTEBOOK_LIST=$(inputs.params.S2I_SOURCE_NOTEBOOK_LIST)
-    - $(inputs.params.PATH_CONTEXT)
-    - $(inputs.params.BUILDER_IMAGE)
+    - -e S2I_SOURCE_NOTEBOOK_LIST=$(params.S2I_SOURCE_NOTEBOOK_LIST)
+    - $(params.PATH_CONTEXT)
+    - $(params.BUILDER_IMAGE)
     - --image-scripts-url
     - image:///opt/sms/.s2i/
     - --scripts-url
@@ -49,12 +45,12 @@ spec:
   - command:
     - buildah
     - bud
-    - --tls-verify=$(inputs.params.TLSVERIFY)
+    - --tls-verify=$(params.TLSVERIFY)
     - --layers
     - -f
     - /gen-source/Dockerfile.gen
     - -t
-    - $(outputs.resources.image.url)
+    - $(results.image.path)
     - .
     image: quay.io/buildah/stable
     name: build
@@ -69,9 +65,9 @@ spec:
   - command:
     - buildah
     - push
-    - --tls-verify=$(inputs.params.TLSVERIFY)
-    - $(outputs.resources.image.url)
-    - docker://$(outputs.resources.image.url)
+    - --tls-verify=$(params.TLSVERIFY)
+    - $(results.image.path)
+    - docker://$(results.image.path)
     image: quay.io/buildah/stable
     name: push
     securityContext:
